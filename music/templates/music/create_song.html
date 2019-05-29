@@ -1,0 +1,86 @@
+{% extends 'music/base.html' %}
+{% block title %}Add a New Problem{% endblock %}
+{% block problemsets_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <div class="row">
+
+        <!-- Left Problemset Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                        <a href="{% url 'music:detail' problemset.id %}">
+                            {% if problemset.problemset_logo %}
+                                <img src="{{ problemset.problemset_logo.url }}" class="img-responsive">
+                            {% else %}
+                                <h3>No image to display</h3>
+                            {% endif %}
+                        </a>
+                    <h1>{{ problemset.problemset_title }} <small>{{ problemset.problemset_type }}</small></h1>
+                    <h2>{{ problemset.curator }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Problem Info -->
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation"><a href="{% url 'music:detail' problemset.id %}">View All</a></li>
+                <li role="presentation" class="active"><a href="{% url 'music:create_problem' problemset.id %}">Add New Problem</a></li>
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Add a New Problem</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <span class="text-danger small"></span>
+        </div>
+        <label class="control-label col-sm-2" for="problem_title"><label for="id_problem_title">Problem title:</label></label>
+        <div class="col-sm-10"><input id="id_problem_title" maxlength="250" name="problem_title" type="text" /></div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <span class="text-danger small"></span>
+        </div>
+        <label class="control-label col-sm-2" for="problem_title"><label for="id_audio_file">Text file:</label></label>
+        <div class="col-sm-10"><input id="id_audio_file" name="audio_file" type="file" /></div>
+    </div>
+
+
+
+                        <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <span class="text-danger small"></span>
+        </div>
+        <label class="control-label col-sm-2" for="problem_title"><label for="id_audio_file">Expected Output:</label></label>
+        <div class="col-sm-10"><input id="id_audio_file" name="audio_file" type="file" /></div>
+    </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+

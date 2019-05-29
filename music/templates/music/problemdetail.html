@@ -1,0 +1,96 @@
+{% extends 'music/base.html' %}
+{% block title %}{{ problem }}{% endblock %}
+{% block problems_active_active %}active{% endblock %}
+{% block body %}
+
+{#  {{ song.as_p }}#}
+{##}
+{#    {% csrf_token %}#}
+{#    <input type="submit" value="Submit" name="codesubmit">#}
+
+
+
+    <div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Submit your code</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% include 'music/form_template.html' %}
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            <div></div>
+            <div class="container">
+
+    <div class="row">
+        <h2>Scoreboard</h2>
+        {% for sub in sub1 %}
+            {% if sub.verdict %}
+                <div>
+                <ul>
+                    <li>{{ sub.user }}</li>
+                    <li>{% if sub.verdict %}
+                            Accepted
+                        {% else %}
+                            Not Accepted
+                        {% endif %}
+                    </li>
+                    <li> {{ sub.time }}</li>
+                </ul>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+            <div class="row">
+        <h2>Rejected Scoreboard</h2>
+        {% for sub in sub1 %}
+            {% if not sub.verdict %}
+                <div>
+                <ul>
+                    <li>{{ sub.user }}</li>
+                    <li>{% if sub.verdict %}
+                            Accepted
+                        {% else %}
+                            Not Accepted
+                        {% endif %}
+                    </li>
+                    <li> {{ sub.time }}</li>
+                </ul>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    </div>
+
+
+{#    <form action="/success/" method="post">#}
+{#      {% csrf_token %}#}
+{#        <label for="code">Enter your code here :</label>#}
+{##}
+{#        <input type="file" id="code" name="code">#}
+{#      <input type="submit" value="Submit" />#}
+{#    </form>#}
+
+
+{% endblock %}

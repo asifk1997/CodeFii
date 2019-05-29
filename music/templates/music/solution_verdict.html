@@ -1,0 +1,23 @@
+{% extends 'music/base.html' %}
+{% block title %}{{ problem }}{% endblock %}
+{% block problems_active_active %}active{% endblock %}
+{% block body %}
+
+
+
+    <h3> your code: </h3>
+    {{ problem.problem_title }}
+    <br>
+    {{ problem.problem_expected_output }}
+    {{ t }}
+
+    <h2>output:</h2>
+
+    {{ data }}
+    {{ submission.verdict }}
+    {{ p }}
+    <h2>ppp</h2>
+    {{ exp_out }}
+    {{ out }}
+
+{% endblock %}

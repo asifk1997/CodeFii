@@ -1,0 +1,97 @@
+{% extends 'music/base.html' %}
+{% block title %}{{ problemset }}{% endblock %}
+{% block problemsets_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid problems-container">
+
+    <div class="row">
+
+        <!-- Left Problemset Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'music:detail' problemset.id %}">
+                        {% if problemset.problemset_logo %}
+                            <img src="{{ problemset.problemset_logo.url }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <h1>{{ problemset.problemset_title }} <small>{{ problemset.problemset_type }}</small></h1>
+                    <h2>{{ problemset.curator }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Problem Info -->
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="{% url 'music:detail' problemset.id %}">View All</a></li>
+                <li role="presentation"><a href="{% url 'music:create_problem' problemset.id %}">Add New Problem</a></li>
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All Problems</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>File</th>
+                            <th>Favorite</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for problem in problemset.problem_set.all %}
+                            <tr>
+
+                                <td> <a href="{% url 'music:problemdetail' problemset.id  problem.id %}" >{{ problem.problem_title }}</a> </td>
+                                <td>
+                                    <a target="_blank" href="{{ problem.problem_file.url }}">
+                                        <button type="button" class="btn btn-success btn-xs">
+                                            <span class="glyphicon glyphicon-download"></span>&nbsp; Download
+                                        </button>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'music:favorite' problem.id %}" class="btn-favorite"><span class="glyphicon glyphicon-star {% if problem.is_favorite %}active{% endif %}"></span></a>
+                                </td>
+                                <td>
+                                    <form action="{% url 'music:delete_problem' problemset.id problem.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="problem_id" value="{{ problem.id }}" />
+                                        <button type="submit" class="btn btn-danger btn-xs">
+                                            <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                                        </button>
+                                    </form>
+                                </td>
+                                <td>
+
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
