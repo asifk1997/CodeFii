@@ -4,7 +4,6 @@
 
 CodeFii is an application that lets teachers to upload the problems along with expected output and students can submit the code for the problem and its output will be matched with expected output and based on that verdict will be given 
 
-![](http://i.imgur.com/9Ix2CbR.png)
 
 ## How does it work?
 
